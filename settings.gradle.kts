@@ -12,3 +12,10 @@ plugins {
 
 rootProject.name = "neo-youth-core"
 
+dynamicProjects {
+    include(":base")
+    include(":neoforge")
+    project(":base").projectDir = file("projects/base")
+    project(":neoforge").projectDir = file("projects/neoforge")
+
+}
