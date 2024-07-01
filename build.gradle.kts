@@ -1,9 +1,14 @@
 plugins {
     id("java")
+    id("net.neoforged.gradleutils") version("3.0.0-alpha.10") apply(false)
 }
 
+apply(plugin = "net.neoforged.gradleutils")
+
 group = "io.github.dovehometeam"
-version = "1.0-SNAPSHOT"
+version = "1W1A"
+
+
 
 repositories {
     mavenCentral()
