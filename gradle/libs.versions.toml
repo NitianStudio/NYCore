@@ -1,0 +1,9 @@
+[versions]
+shadow="8.1.1"
+lombok="1.18.32"
+[libraries]
+lombok={ module = "org.projectlombok:lombok", version.ref="lombok"}
+[bundles]
+
+[plugins]
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }

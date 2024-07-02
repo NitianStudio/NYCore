@@ -1,9 +1,10 @@
-plugins {
-    id("java")
-    id("net.neoforged.gradleutils") version("3.0.0-alpha.10") apply(false)
-}
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-apply(plugin = "net.neoforged.gradleutils")
+plugins {
+    java
+    application
+    alias(libs.plugins.shadow)
+}
 
 group = "io.github.dovehometeam"
 version = "1W1A"
@@ -15,10 +16,12 @@ repositories {
 }
 
 dependencies {
-    implementation("net.minestom:minestom-snapshots:77af815afe")
+    implementation("net.minestom:minestom-snapshots:73b308673b")
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
 }
-
-val targetJavaVersion = 21
+val java_version:String by rootProject
+val targetJavaVersion = java_version.toInt()
 
 java {
     val javaVersion = JavaVersion.toVersion(targetJavaVersion)
@@ -37,5 +40,11 @@ tasks {
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
+    }
+    application {
+        mainClass.set("io.github.nitianstudio.Main")
+    }
+    withType<ShadowJar>() {
+        archiveFileName.set("nyc-test-${version}.jar")
     }
 }
