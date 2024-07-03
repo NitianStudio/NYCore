@@ -1,8 +1,16 @@
 [versions]
 shadow="8.1.1"
 lombok="1.18.32"
+minestom="73b308673b"
+log4j="2.23.1"
+slf4j="2.0.13"
 [libraries]
 lombok={ module = "org.projectlombok:lombok", version.ref="lombok"}
+log4j-api={ module="org.apache.logging.log4j:log4j-api", version.ref="log4j"}
+log4j-slf4j2-impl={ module="org.apache.logging.log4j:log4j-slf4j2-impl", version.ref="log4j"}
+slf4j2-api={ module="org.slf4j:slf4j-api", version.ref="slf4j"}
+log4j-core={ module="org.apache.logging.log4j:log4j-core", version.ref="log4j"}
+minestom={ module = "net.minestom:minestom-snapshots", version.ref="minestom"}
 [bundles]
 
 [plugins]

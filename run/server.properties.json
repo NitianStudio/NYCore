@@ -1,0 +1,6 @@
+{
+  "max-players": 13,
+  "online-mode": true,
+  "server-ip": "0.0.0.0",
+  "server-port": 25565
+}

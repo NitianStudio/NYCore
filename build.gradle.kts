@@ -16,9 +16,14 @@ repositories {
 }
 
 dependencies {
-    implementation("net.minestom:minestom-snapshots:73b308673b")
+    implementation(libs.minestom)
+    implementation(libs.log4j.api)
+    implementation(libs.log4j.core)
+    implementation(libs.slf4j2.api)
+    implementation(libs.log4j.slf4j2.impl)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
+
 }
 val java_version:String by rootProject
 val targetJavaVersion = java_version.toInt()
@@ -43,8 +48,11 @@ tasks {
     }
     application {
         mainClass.set("io.github.nitianstudio.Main")
+        getByName<JavaExec>("run").workingDir(file("run"))
+
     }
     withType<ShadowJar>() {
         archiveFileName.set("nyc-test-${version}.jar")
     }
 }
+
