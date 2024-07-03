@@ -1,4 +1,18 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.eclipse.jgit.api.CloneCommand
+import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.api.GitCommand
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r")
+    }
+}
 
 plugins {
     java
@@ -14,9 +28,23 @@ version = "1W1A"
 repositories {
     mavenCentral()
 }
+var gitMineston = file("build/jgit")
+
+var call: Git;
+if (!gitMineston.exists()) {
+    val cc = Git.cloneRepository().setURI("https://github.com/Minestom/Minestom.git")
+    call = cc.setDirectory(gitMineston).call()
+} else {
+    call = Git.open(gitMineston)
+    call.pull()
+}
+var hash = call.repository.exactRef("refs/heads/master").objectId.abbreviate(10).name()
+
+
 
 dependencies {
-    implementation(libs.minestom)
+    implementation("net.minestom:minestom-snapshots:${hash}")
+//    implementation(libs.minestom)
     implementation(libs.log4j.api)
     implementation(libs.log4j.core)
     implementation(libs.slf4j2.api)
@@ -48,7 +76,11 @@ tasks {
     }
     application {
         mainClass.set("io.github.nitianstudio.Main")
-        getByName<JavaExec>("run").workingDir(file("run"))
+        val r = file("run")
+        if (!r.exists()) {
+            r.mkdirs()
+        }
+        getByName<JavaExec>("run").workingDir(r)
 
     }
     withType<ShadowJar>() {
