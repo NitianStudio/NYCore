@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import static io.github.nitianstudio.config.Paths.serverProp;
-import static io.github.nitianstudio.config.ServerProp.gson;
+import static io.github.nitianstudio.server.NycImpl.gson;
 
 public class ServerEvents {
 
@@ -56,10 +56,11 @@ public class ServerEvents {
 
     @AutoRegistryEvent(ServerTickMonitorEvent.class)
     public static void tick(ServerTickMonitorEvent event) {
+
         if (((int) event.getTickMonitor().getTickTime()) % 1000 == 0) {
             // auto load
             try (BufferedReader bw = Files.newBufferedReader(serverProp.get(), StandardCharsets.UTF_8)) {
-                ServerProp.serverProps.set(gson.fromJson(bw, ServerProp.class));
+                ServerProp.serverProps.set(gson().fromJson(bw, ServerProp.class));
             } catch (IOException ignored) {}
         }
     }

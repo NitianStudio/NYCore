@@ -16,6 +16,7 @@ public class PlayerEvents {
     public static void onJoin(AsyncPlayerConfigurationEvent event) {
 
         Player player = event.getPlayer();
+        player.setPermissionLevel(4);
         event.setSpawningInstance(NeoYouthCoreServer.getInstanceContainer());
 
         player.setRespawnPoint(new Pos(0, 49, 0));

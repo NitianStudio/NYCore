@@ -1,7 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.eclipse.jgit.api.CloneCommand
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.api.GitCommand
 
 
 buildscript {
@@ -27,6 +25,10 @@ version = "1W1A"
 
 repositories {
     mavenCentral()
+    maven {
+        name = "sponge"
+        url =uri("https://repo.spongepowered.org/maven")
+    }
 }
 var gitMineston = file("build/jgit")
 
@@ -45,12 +47,12 @@ var hash = call.repository.exactRef("refs/heads/master").objectId.abbreviate(10)
 dependencies {
     implementation("net.minestom:minestom-snapshots:${hash}")
 //    implementation(libs.minestom)
-    implementation(libs.log4j.api)
-    implementation(libs.log4j.core)
-    implementation(libs.slf4j2.api)
-    implementation(libs.log4j.slf4j2.impl)
-    compileOnly(libs.lombok)
-    annotationProcessor(libs.lombok)
+    implementation(libs.bundles.log4j)
+    implementation(libs.bundles.jline)
+    for (s in listOf("compileOnly", "annotationProcessor")) {
+        add(s, libs.lombok)
+    }
+
 
 }
 val java_version:String by rootProject

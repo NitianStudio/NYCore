@@ -1,16 +1,21 @@
 [versions]
 shadow="8.1.1"
-lombok="1.18.32"
+lombok="1.18.34"
 log4j="2.23.1"
 slf4j="2.0.13"
+jline="3.26.2"
 [libraries]
 lombok={ module = "org.projectlombok:lombok", version.ref="lombok"}
 log4j-api={ module="org.apache.logging.log4j:log4j-api", version.ref="log4j"}
 log4j-slf4j2-impl={ module="org.apache.logging.log4j:log4j-slf4j2-impl", version.ref="log4j"}
 slf4j2-api={ module="org.slf4j:slf4j-api", version.ref="slf4j"}
 log4j-core={ module="org.apache.logging.log4j:log4j-core", version.ref="log4j"}
+jline={ module="org.jline:jline", version.ref="jline" }
+jansi={ module="org.jline:jline-terminal-jansi", version.ref="jline" }
 
 [bundles]
+jline=["jline", "jansi"]
+log4j=["log4j-api", "log4j-core", "log4j-slf4j2-impl", "slf4j2-api"]
 
 [plugins]
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
