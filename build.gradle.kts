@@ -30,17 +30,24 @@ repositories {
         url =uri("https://repo.spongepowered.org/maven")
     }
 }
-var gitMineston = file("build/jgit")
 
-var call: Git;
-if (!gitMineston.exists()) {
-    val cc = Git.cloneRepository().setURI("https://github.com/Minestom/Minestom.git")
-    call = cc.setDirectory(gitMineston).call()
-} else {
-    call = Git.open(gitMineston)
-    call.pull()
+fun call(dir: File, url: String): Git {
+    if (!dir.exists()) {
+        return Git.cloneRepository().setURI(url).setDirectory(dir).call()
+    } else {
+
+
+        return Git.open(dir).apply {
+            this.pull()
+        }
+    }
 }
-var hash = call.repository.exactRef("refs/heads/master").objectId.abbreviate(10).name()
+val minestom = call(file("build/minestom"), "https://github.com/Minestom/Minestom.git")
+val neo = call(file("build/neo"), "https://github.com/neoforged/NeoForge.git")
+
+var hash = minestom.repository.exactRef("refs/heads/master").objectId.abbreviate(10).name()
+
+
 
 
 
