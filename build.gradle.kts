@@ -59,7 +59,7 @@ Executors.newVirtualThreadPerTaskExecutor().use {
         }, it)
 
     )
-
+    it.close()
 }
 
 
