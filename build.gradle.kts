@@ -1,5 +1,8 @@
+
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.eclipse.jgit.api.Git
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executors
 
 
 buildscript {
@@ -43,7 +46,25 @@ fun call(dir: File, url: String): Git {
     }
 }
 val minestom = call(file("build/minestom"), "https://github.com/Minestom/Minestom.git")
-val neo = call(file("build/neo"), "https://github.com/neoforged/NeoForge.git")
+Executors.newVirtualThreadPerTaskExecutor().use {
+    val list = listOf<CompletableFuture<Void>>(
+        CompletableFuture.runAsync( {
+            val neo = call(file("build/neo"), "https://github.com/neoforged/NeoForge.git")
+        }, it),
+        CompletableFuture.runAsync({
+            val fabric = call(file("build/fabric"), "https://github.com/FabricMC/fabric.git")
+        }, it),
+        CompletableFuture.runAsync({
+            val forge = call(file("build/forge"), "https://github.com/MinecraftForge/MinecraftForge.git")
+        }, it)
+
+    )
+
+}
+
+
+
+
 
 var hash = minestom.repository.exactRef("refs/heads/master").objectId.abbreviate(10).name()
 
