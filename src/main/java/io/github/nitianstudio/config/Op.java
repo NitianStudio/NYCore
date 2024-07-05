@@ -39,6 +39,9 @@ public class Op {
     public static void put(String key, UUID uuid) {
         ops.get().put(key, new Op(uuid.toString()));
     }
+
+    public static void remove(String key) { ops.get().remove(key); }
+
     public static boolean has(Player player) {
         return ops.get().containsKey(player.getUsername()) && ops.get().get(player.getUsername()).uuid.equals(player.getUuid().toString());
     }

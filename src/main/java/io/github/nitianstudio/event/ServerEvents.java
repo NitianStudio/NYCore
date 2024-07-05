@@ -53,6 +53,7 @@ public class ServerEvents {
         ServerProp serverProps = ServerProp.serverProps.get();
         ResponseData responseData = event.getResponseData();
         responseData.setMaxPlayer(serverProps.maxPlayers);
+
     }
 
     @AutoRegistryEvent(ServerTickMonitorEvent.class)

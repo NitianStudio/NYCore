@@ -1,4 +1,4 @@
-package io.github.nitianstudio.command.permissions;
+package io.github.nitianstudio.permission;
 
 
 import lombok.Getter;

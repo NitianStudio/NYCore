@@ -4,15 +4,13 @@ import io.github.nitianstudio.command.ServerCommands;
 import io.github.nitianstudio.config.Op;
 import io.github.nitianstudio.config.ServerProp;
 import io.github.nitianstudio.event.ServerEvents;
+import io.github.nitianstudio.terminal.NycTerminal;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -37,8 +35,9 @@ public class NeoYouthCoreServer {
         log.info("loading terminal");
 
         log.info("Starting server on{}:{}", prop().ip, prop().port);
-        server.start(prop().ip, prop().port);
 
+        server.start(prop().ip, prop().port);
+        NycTerminal.run();
 
         MinecraftServer.getSchedulerManager().buildShutdownTask(this::onShutdown);
 

@@ -19,36 +19,10 @@ public class Main {
 //    public static Console
 
 
-    private static volatile Terminal terminal;
+
     public static void main(String[] args) {
         NeoYouthCoreServer.instance();
-        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
-        executor.submit(() -> {
-            try {
-                terminal = TerminalBuilder.terminal();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            LineReader reader = LineReaderBuilder.builder()
-                    .terminal(terminal)
-                    .completer((lineReader, parsedLine, list) -> {
 
-                    })
-                    .build();
-            while (true) {
-                String command;
-                try {
-                    command = reader.readLine();
-                    commandManager().execute(commandManager().getConsoleSender(), command);
-                } catch (UserInterruptException e) {
-                    // Handle Ctrl + C
-                    System.exit(0);
-                    return;
-                } catch (EndOfFileException e) {
-                    return;
-                }
-            }
-        });
 
 
 //        NeoYouthCoreServer instance = NeoYouthCoreServer.getInstance();
