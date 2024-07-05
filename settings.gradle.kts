@@ -7,3 +7,6 @@ pluginManagement {
 }
 
 rootProject.name = "neo-youth-core"
+
+include("fabric", "forge", "neoforge")
+
