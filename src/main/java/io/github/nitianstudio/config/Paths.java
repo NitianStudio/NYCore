@@ -79,19 +79,19 @@ public enum Paths implements Supplier<Path> {
         }
     }
 
-    public <T> void run(T defaultInstance, AtomicReference<T> reference, Class<T> clazz) {
+    public <T> void run(Supplier<T> supplier, AtomicReference<T> reference, Class<T> clazz) {
         checkParent();
         if (!Files.exists(path)) {
-            save(defaultInstance);
+            save(supplier.get());
         }
         load(reference, clazz);
     }
 
-    public <T> void run(T defaultInstance, AtomicReference<T> reference, TypeToken<T> token) {
+    public <T> void run(Supplier<T> supplier, AtomicReference<T> reference, TypeToken<T> token) {
         checkParent();
 
         if (!Files.exists(path)) {
-            save(defaultInstance);
+            save(supplier.get());
         }
         load(reference, token);
     }

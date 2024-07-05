@@ -7,6 +7,7 @@ public class ServerCommands {
     public static void run(CommandManager manager) {
         manager.setUnknownCommandCallback(ServerCommands::fallback);
         manager.register(new StopCommand());
+        manager.register(new OpCommand());
     }
 
     private static void fallback(CommandSender sender, String command) {

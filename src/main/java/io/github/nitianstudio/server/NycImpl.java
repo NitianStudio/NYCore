@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandManager;
+import net.minestom.server.network.ConnectionManager;
+import org.jetbrains.annotations.NotNull;
 
 public class NycImpl {
 
@@ -19,6 +21,10 @@ public class NycImpl {
             private static final Gson gson = new GsonBuilder().setPrettyPrinting().setLenient().create();
         }
         return Handler.gson;
+    }
+
+    public static @NotNull ConnectionManager connManager() {
+        return MinecraftServer.getConnectionManager();
     }
 
     public static CommandManager commandManager() {
