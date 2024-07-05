@@ -52,6 +52,7 @@ dependencies {
     for (s in listOf("compileOnly", "annotationProcessor")) {
         add(s, libs.lombok)
     }
+    implementation(libs.bundles.mixin)
 
 
 }
@@ -83,8 +84,9 @@ tasks {
             r.mkdirs()
         }
         getByName<JavaExec>("run").workingDir(r)
-
+//        applicationDefaultJvmArgs = listOf("-Djline.terminal=jline.UnsupportedTerminal")
     }
+
     withType<ShadowJar>() {
         archiveFileName.set("nyc-test-${version}.jar")
     }

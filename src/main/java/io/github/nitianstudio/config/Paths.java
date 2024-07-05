@@ -2,6 +2,7 @@ package io.github.nitianstudio.config;
 
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +17,9 @@ import java.util.function.Supplier;
 
 import static io.github.nitianstudio.server.NycImpl.gson;
 
+@SuppressWarnings("LoggingSimilarMessage")
 @Getter
+@Slf4j
 public enum Paths implements Supplier<Path> {
     user_dir(System.getProperty("user.dir")),
     serverProp(user_dir, "server.properties.json"),
@@ -28,7 +31,7 @@ public enum Paths implements Supplier<Path> {
     private final Paths parent;
 
     private final Path path;
-    private static final Logger logger = LoggerFactory.getLogger(Paths.class);
+
 
     Paths(String path) {
         this.parent = null;
@@ -56,7 +59,7 @@ public enum Paths implements Supplier<Path> {
         try(BufferedWriter bw = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             gson().toJson(instance, bw);
         } catch (IOException e) {
-            logger.error("I don't save " + path.toFile().getName());
+            log.error("I don't save " + path.toFile().getName());
         }
     }
 
@@ -64,7 +67,7 @@ public enum Paths implements Supplier<Path> {
         try(BufferedReader br = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             reference.set(gson().fromJson(br, clazz));
         } catch (IOException e) {
-            logger.error("I don't load " + path.toFile().getName());
+            log.error("I don't load {}", path.toFile().getName());
         }
     }
 
@@ -72,7 +75,7 @@ public enum Paths implements Supplier<Path> {
         try(BufferedReader br = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             reference.set(gson().fromJson(br, token.getType()));
         } catch (IOException e) {
-            logger.error("I don't load " + path.toFile().getName());
+            log.error("I don't load {}", path.toFile().getName());
         }
     }
 

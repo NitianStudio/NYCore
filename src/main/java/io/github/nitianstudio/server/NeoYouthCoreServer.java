@@ -6,6 +6,7 @@ import io.github.nitianstudio.config.ServerProp;
 import io.github.nitianstudio.event.ServerEvents;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.instance.InstanceContainer;
@@ -17,10 +18,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static io.github.nitianstudio.server.NycImpl.server;
 
+@Slf4j
 public class NeoYouthCoreServer {
-
-    private static final Logger logger = LoggerFactory.getLogger(NeoYouthCoreServer.class);
-
 
     private static final AtomicReference<NeoYouthCoreServer> instance = new AtomicReference<>();
     @Getter
@@ -35,9 +34,9 @@ public class NeoYouthCoreServer {
         preInit();
         ServerCommands.run(MinecraftServer.getCommandManager());
         ServerEvents.run(MinecraftServer.getGlobalEventHandler());
-        logger.info("loading terminal");
+        log.info("loading terminal");
 
-        logger.info("Starting server on" + prop().ip + ":" + prop().port);
+        log.info("Starting server on{}:{}", prop().ip, prop().port);
         server.start(prop().ip, prop().port);
 
 
@@ -56,7 +55,7 @@ public class NeoYouthCoreServer {
     }
 
     private void onShutdown() {
-        logger.info("Server shutting down...");
+        log.info("Server shutting down...");
     }
 
     public static ServerProp prop() {

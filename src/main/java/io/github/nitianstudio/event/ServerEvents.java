@@ -2,6 +2,7 @@ package io.github.nitianstudio.event;
 
 import io.github.nitianstudio.annotation.AutoRegistryEvent;
 import io.github.nitianstudio.config.ServerProp;
+import lombok.extern.slf4j.Slf4j;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
@@ -21,10 +22,10 @@ import java.nio.file.Files;
 
 import static io.github.nitianstudio.config.Paths.serverProp;
 import static io.github.nitianstudio.server.NycImpl.gson;
-
+@Slf4j
 public class ServerEvents {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServerEvents.class);
+
 
     public static void run(GlobalEventHandler handler) {
 //        handler.addListener(AsyncPlayerConfigurationEvent.class, PlayerEvents::onJoin);
@@ -41,7 +42,7 @@ public class ServerEvents {
                     try {
                         method.invoke(null, event);
                     } catch (Exception e) {
-                        logger.error(method.getName() + "isn't load");
+                        log.error("{}isn't load", method.getName());
                     }
                 });
             }

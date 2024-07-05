@@ -10,8 +10,9 @@ import net.minestom.server.ping.ResponseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class PlayerEvents {
-    private static final Logger logger = LoggerFactory.getLogger(PlayerEvents.class);
+
     @AutoRegistryEvent(AsyncPlayerConfigurationEvent.class)
     public static void onJoin(AsyncPlayerConfigurationEvent event) {
 

@@ -4,6 +4,11 @@ lombok="1.18.34"
 log4j="2.23.1"
 slf4j="2.0.13"
 jline="3.26.2"
+mixin="0.8.7-SNAPSHOT"
+asm="9.7"
+byte-buddy="1.14.17"
+# implementation 'net.bytebuddy:byte-buddy:1.14.17'
+# implementation 'org.ow2.asm:asm:9.7'
 [libraries]
 lombok={ module = "org.projectlombok:lombok", version.ref="lombok"}
 log4j-api={ module="org.apache.logging.log4j:log4j-api", version.ref="log4j"}
@@ -12,10 +17,15 @@ slf4j2-api={ module="org.slf4j:slf4j-api", version.ref="slf4j"}
 log4j-core={ module="org.apache.logging.log4j:log4j-core", version.ref="log4j"}
 jline={ module="org.jline:jline", version.ref="jline" }
 jansi={ module="org.jline:jline-terminal-jansi", version.ref="jline" }
-
+mixin={ module="org.spongepowered:mixin", version.ref="mixin" }
+asm={ module="org.ow2.asm:asm", version.ref="asm" }
+asm-util={ module="org.ow2.asm:asm-util", version.ref="asm" }
+asm-commons={ module="org.ow2.asm:asm-commons", version.ref="asm" }
+asm-tree={ module="org.ow2.asm:asm-tree", version.ref="asm" }
+byte-buddy={ module="net.bytebuddy:byte-buddy", version.ref="byte-buddy" }
 [bundles]
 jline=["jline", "jansi"]
 log4j=["log4j-api", "log4j-core", "log4j-slf4j2-impl", "slf4j2-api"]
-
+mixin=["mixin", "asm", "asm-util", "asm-tree", "asm-commons", "byte-buddy"]
 [plugins]
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
